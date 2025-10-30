@@ -1,0 +1,46 @@
+<div class="container mt-4">
+  <h4 class="text-primary mb-3">Recherche par nom de cours</h4>
+
+  <!-- Champ de recherche -->
+  <div class="form-group mb-3">
+    <label for="nomCours" class="fw-bold me-2">Nom du cours :</label>
+    <input
+      type="text"
+      id="nomCours"
+      class="form-control"
+      placeholder="Tapez un nom..."
+      [(ngModel)]="nomCours"
+      (keyup)="onKeyUp(nomCours)"
+    />
+  </div>
+
+  <!-- Tableau des cours -->
+  <div class="card shadow mt-3">
+    <div class="card-body">
+      <table class="table table-striped table-hover">
+        <thead class="table-primary">
+          <tr>
+            <th>ID</th>
+            <th>Nom du cours</th>
+            <th>Prix</th>
+            <th>Date création</th>
+            <th>Section</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let c of cours">
+            <td>{{ c.idCours }}</td>
+            <td>{{ c.nomCours }}</td>
+            <td>{{ c.prixCours }}</td>
+            <td>{{ c.dateCreation }}</td>
+            <td>{{ c.section?.nomCat }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div *ngIf="cours.length === 0" class="text-center text-danger mt-3">
+        Aucun cours trouvé.
+      </div>
+    </div>
+  </div>
+</div>

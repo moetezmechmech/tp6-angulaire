@@ -1,0 +1,114 @@
+<div class="container">
+  <div>
+    <h2>Ajouter un Cours :</h2>
+  </div>
+
+  <form #coursForm="ngForm">
+
+    <!-- ID Cours -->
+    <div class="col-4">
+      <label>ID Cours</label>
+       <input type="text"
+       class="form-control"
+       name="idCours"
+       [(ngModel)]="newCours.idCours"
+       required
+       pattern="[0-9]+">
+       
+       @if (coursForm.controls['idCours']?.touched && coursForm.controls['idCours']?.hasError('required')) {
+       <span class="text-danger">ID Cours est obligatoire</span>
+      }
+
+        @if (coursForm.controls['idCours']?.touched && coursForm.controls['idCours']?.hasError('pattern')) {
+        <span class="text-danger">ID doit contenir uniquement des chiffres</span>
+      }
+   </div>
+
+    <!-- Nom Cours -->
+    <div class="col-4">
+      <label>Nom Cours</label>
+      <input type="text" class="form-control"
+             name="nomCours"
+             [(ngModel)]="newCours.nomCours"
+             required minlength="3">
+      @if (coursForm.controls['nomCours']?.touched && coursForm.controls['nomCours']?.hasError('required')) {
+        <span class="text-danger">Nom du cours est obligatoire</span>
+      }
+      @if (coursForm.controls['nomCours']?.touched && coursForm.controls['nomCours']?.hasError('minlength')) {
+        <span class="text-danger">Minimum 3 caractères</span>
+      }
+    </div>
+
+    <!-- Prix -->
+    <div class="col-4">
+      <label>Prix Cours</label>
+      <input type="number" class="form-control"
+             name="prixCours"
+             [(ngModel)]="newCours.prixCours"
+             required min="1">
+      @if (coursForm.controls['prixCours']?.touched && coursForm.controls['prixCours']?.hasError('required')) {
+        <span class="text-danger">Prix requis</span>
+      }
+      @if (coursForm.controls['prixCours']?.touched && coursForm.controls['prixCours']?.hasError('min')) {
+        <span class="text-danger">Prix doit être > 0</span>
+      }
+    </div>
+
+    <!-- Date -->
+    <div class="col-4">
+      <label>Date création</label>
+      <input type="date" class="form-control"
+             name="dateCreation"
+             [(ngModel)]="newCours.dateCreation"
+             required>
+      @if (coursForm.controls['dateCreation']?.touched && coursForm.controls['dateCreation']?.invalid) {
+        <span class="text-danger">Date obligatoire</span>
+      }
+    </div>
+
+    <!-- Section -->
+    <div class="col-4">
+      <label>Section</label>
+      <select class="form-control"
+              name="idCat"
+              [(ngModel)]="newIdCat"
+              required>
+        <option value="">-- Choisir --</option>
+        @for(cat of section; track cat.idCat){
+          <option [value]="cat.idCat">{{ cat.nomCat }}</option>
+        }
+      </select>
+
+      @if (coursForm.controls['idCat']?.touched && coursForm.controls['idCat']?.invalid) {
+        <span class="text-danger">Choix obligatoire</span>
+      }
+    </div>
+
+    <!-- Email -->
+    <div class="col-4">
+      <label>Email Enseignant</label>
+      <input type="email" class="form-control"
+             name="emailEnseignant"
+             [(ngModel)]="newCours.emailEnseignant"
+             required email>
+
+      @if (coursForm.controls['emailEnseignant']?.touched && coursForm.controls['emailEnseignant']?.hasError('required')) {
+        <span class="text-danger">Email obligatoire</span>
+      }
+      @if (coursForm.controls['emailEnseignant']?.touched && coursForm.controls['emailEnseignant']?.hasError('email')) {
+        <span class="text-danger">Email non valide</span>
+      }
+    </div>
+
+    <!-- Button -->
+    <div class="mt-2">
+      <button class="btn btn-success"
+              type="submit"
+              [disabled]="coursForm.invalid"
+              (click)="addCours()">
+        Ajouter
+      </button>
+    </div>
+
+  </form>
+</div>

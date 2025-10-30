@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <table class="table table-striped">
+        @if (courss.length!=0) {
+        <thead>
+          <tr>
+            <th>index</th>
+            <th>idCours</th>
+            <th>nomCours</th>
+            <th>prixCours</th>
+            <th>dateCreation</th>
+             <th>Section</th>
+             <th>email</th>
+          </tr>
+        </thead>
+        }
+        @for (cours of courss; track cours.idCours; let index=$index;let nbr=$count;let first=$first;let last=$last) {
+        <tbody>
+          <tr>
+            <td>{{index+1}}</td>
+            <td>{{cours.idCours}}</td>
+            <td>{{cours.nomCours}}</td>
+            <td>{{cours.prixCours}}</td>
+            <td>{{cours.dateCreation | date:("dd/MM/yyyy")}}</td>
+            <td>{{cours.section?.nomCat}}</td>
+            <td>{{cours.emailEnseignant}}</td>
+            <td><a class="btn btn-danger" (click)="supprimerCours(cours)">Supprimer</a></td>
+            <td><a class="btn btn-success" [routerLink]="['/update-cours',cours.idCours]">Modifier</a></td>
+          </tr>
+        </tbody>
+        @if (last) {
+          <h1>Nombre : {{nbr}}</h1>
+        }
+      }
+        @empty {
+        <h1>Aucune cours touvé</h1>
+        }
+      </table>
+    </div>
+  </div>
+</div>

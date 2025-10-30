@@ -1,0 +1,86 @@
+<div class="container mt-3">
+  <div>
+    <h2>Modifier un Cours :</h2>
+  </div>
+
+  <form #editForm="ngForm">
+
+    <div hidden>
+      <label>ID Cours</label>
+      <input type="text" [(ngModel)]="currentCours.idCours" name="idCours" class="form-control">
+    </div>
+
+    <!-- Nom Cours -->
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Nom Cours</label>
+      <input type="text"
+             [(ngModel)]="currentCours.nomCours"
+             name="nomCours"
+             class="form-control"
+             required minlength="4">
+      
+      @if(editForm.controls['nomCours']?.touched && editForm.controls['nomCours']?.hasError('required')){
+        <span class="text-danger">Nom du cours est obligatoire</span>
+      }
+      @if(editForm.controls['nomCours']?.touched && editForm.controls['nomCours']?.hasError('minlength')){
+        <span class="text-danger">Minimum 4 caractères</span>
+      }
+    </div>
+
+    <!-- Prix -->
+    <div class="col-sm-2 col-md-2 col-lg-2">
+      <label>Prix Cours</label>
+      <input type="number"
+             [(ngModel)]="currentCours.prixCours"
+             name="prixCours"
+             class="form-control"
+             required min="1">
+      
+      @if(editForm.controls['prixCours']?.touched && editForm.controls['prixCours']?.invalid){
+        <span class="text-danger">Prix doit être supérieur à 0</span>
+      }
+    </div>
+
+    <!-- Date -->
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Date création</label>
+      <input type="date"
+             [ngModel]="currentCours.dateCreation | date:'yyyy-MM-dd'"
+             (ngModelChange)="currentCours.dateCreation = $event"
+             name="dateCreation"
+             class="form-control"
+             required>
+
+      @if(editForm.controls['dateCreation']?.touched && editForm.controls['dateCreation']?.invalid){
+        <span class="text-danger">Date obligatoire</span>
+      }
+    </div>
+
+    <!-- Section -->
+    <div class="col-sm-4 col-md-4 col-lg-4 mt-2">
+      <label>Section</label>
+      <select class="form-control"
+              name="idCat"
+              [(ngModel)]="updateCatId"
+              required>
+        @for(cat of Section ; track cat.idCat){
+          <option [value]="cat.idCat">{{ cat.nomCat }}</option>
+        }
+      </select>
+
+      @if(editForm.controls['idCat']?.touched && editForm.controls['idCat']?.invalid){
+        <span class="text-danger">Section obligatoire</span>
+      }
+    </div>
+
+    <div class="mt-3">
+      <button type="submit"
+              class="btn btn-success"
+              [disabled]="editForm.invalid"
+              (click)="updateCours()">
+        Modifier
+      </button>
+    </div>
+
+  </form>
+</div>

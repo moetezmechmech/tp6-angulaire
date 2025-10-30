@@ -1,0 +1,78 @@
+<div class="container mt-5">
+  <div class="row justify-content-md-center">
+    <div class="col-md-4">
+
+      <form [formGroup]="myForm">
+
+        <!-- Username -->
+        <div class="form-group mb-2">
+          <label>Nom Utilisateur :</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="username"
+          >
+          @if (myForm.controls['username'].touched && myForm.controls['username'].hasError('required')) {
+            <span class="text-danger">Nom Utilisateur est obligatoire</span>
+          }
+        </div>
+
+        <!-- Email -->
+        <div class="form-group mb-2">
+          <label>Email :</label>
+          <input
+            type="email"
+            class="form-control"
+            formControlName="email"
+          >
+          @if (myForm.controls['email'].touched && myForm.controls['email'].hasError('required')) {
+            <span class="text-danger">Email est obligatoire</span>
+          }
+          @if (myForm.controls['email'].touched && myForm.controls['email'].hasError('email')) {
+            <span class="text-danger">Email non valide</span>
+          }
+        </div>
+
+        <!-- Password -->
+        <div class="form-group mb-2">
+          <label>Mot de passe :</label>
+          <input
+            type="password"
+            class="form-control"
+            formControlName="password"
+          >
+          @if (myForm.controls['password'].touched && myForm.controls['password'].hasError('required')) {
+            <span class="text-danger">Mot de passe est obligatoire</span>
+          }
+          @if (myForm.controls['password'].touched && myForm.controls['password'].hasError('minlength')) {
+            <span class="text-danger">Mot de passe doit contenir au moins 6 caractères</span>
+          }
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="form-group mb-2">
+          <label>Confirmer Mot de passe :</label>
+          <input
+            type="password"
+            class="form-control"
+            formControlName="confirmPassword"
+          >
+          @if (myForm.controls['confirmPassword'].touched && myForm.controls['confirmPassword'].hasError('required')) {
+            <span class="text-danger">Confirmer mot de passe est obligatoire</span>
+          }
+          @if (myForm.touched && myForm.errors?.['passwordMismatch']) {
+            <span class="text-danger">Les mots de passe ne correspondent pas</span>
+          }
+        </div>
+
+
+        <p class="mt-2 text-center">
+          Vous avez un compte ?
+          <a routerLink="/login">Se connecter</a>
+        </p>
+
+      </form>
+
+    </div>
+  </div>
+</div>
